@@ -16,5 +16,4 @@ def solution(w,h):
             cnt += 1
             분자 %= w
             
-            
     return answer - cnt
