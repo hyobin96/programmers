@@ -40,9 +40,11 @@ def solution(edges):
         add_dict(in_edge_d, b, a)
     
     added_vertex = 0
+    total = 0
     for vertex in vertexs:
         if vertex not in in_edge_d and vertex in out_edge_d and len(out_edge_d[vertex]) >= 2:
             added_vertex = vertex
+            total = len(out_edge_d[vertex])
             for v in out_edge_d[vertex]:
                 in_edge_d[v].remove(vertex)
             del out_edge_d[vertex]
@@ -59,20 +61,6 @@ def solution(edges):
         elif vertex in in_edge_d and len(in_edge_d[vertex]) == 2 and vertex in out_edge_d and len(out_edge_d[vertex]) == 2:
             팔자_중심점들.append(vertex)
             
-    for u in (팔자_중심점들):
-        dfs(u, out_edge_d)
-            
-    for u in 막대_끝점들:
-        dfs(u, in_edge_d)
-        
-    도넛_그래프_수 = 0
-    cnt = len(vertexs)
-    for v in set(vertexs):
-        if v in vertexs:
-            cnt -= dfs(v, out_edge_d)
-            도넛_그래프_수 += 1
-        if not cnt:
-            break
     
-    answer = [added_vertex, 도넛_그래프_수, len(막대_끝점들), len(팔자_중심점들)]
+    answer = [added_vertex, total - len(막대_끝점들) - len(팔자_중심점들), len(막대_끝점들), len(팔자_중심점들)]
     return answer
