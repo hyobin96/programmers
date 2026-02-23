@@ -19,7 +19,7 @@ def solution(alp, cop, problems):
                 dp[i][j] = 0
         
     for i in range(min(max_alp, alp), n + 1):
-        for j in range(m + 1):
+        for j in range(min(max_cop, cop), m + 1):
             if dp[i][j] == 1e6:
                 continue
             for alp_req, cop_req, alp_rwd, cop_rwd, cost in problems:
