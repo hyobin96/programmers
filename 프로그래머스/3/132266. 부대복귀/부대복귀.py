@@ -10,14 +10,18 @@ def solution(n, roads, sources, destination):
     dists = [INF] * (n + 1)
     dists[destination] = 0
     pq = []
-    heapq.heappush(pq, destination)
+    heapq.heappush(pq, (0, destination))
     
     while pq:
-        u = heapq.heappop(pq)
+        dist, u = heapq.heappop(pq)
+        if dist != dists[u]:
+            continue
+            
         for v in edges[u]:
-            if dists[v] > dists[u] + 1:
-                dists[v] = dists[u] + 1
-                heapq.heappush(pq, v)
+            new_dist = dists[u] + 1
+            if dists[v] > new_dist:
+                dists[v] = new_dist
+                heapq.heappush(pq, (new_dist, v))
                 
     recall_times = []
     for source in sources:
