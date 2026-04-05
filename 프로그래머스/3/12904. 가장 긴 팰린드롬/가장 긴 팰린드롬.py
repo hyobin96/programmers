@@ -1,19 +1,15 @@
 def solution(s):
-    def count_palindrome(left, right, count):
-        while left >= 0 and right < len(s):
-            if s[left] != s[right]:
-                break
-            left -= 1
-            right += 1
-            count += 2
-        return count
+    s = '#' + '#'.join(s) + '#'
+    s_length = len(s)
+    A = [0] * s_length
+    
+    for i in range(s_length):
+        A[i] = 0
         
-    max_length = 1
-    for i in range(len(s) - 1):
-        max_length = max(max_length, count_palindrome(i - 1, i + 1, 1))
-        if s[i] == s[i + 1]:
-            max_length = max(max_length, count_palindrome(i - 1, i + 2, 2))
+        while i - A[i] - 1 >= 0 and i + A[i] + 1 < s_length and s[i - A[i] - 1] == s[i + A[i] + 1]:
+            A[i] += 1
         
+    
+    max_length = max(A)
     answer = max_length
-
     return answer
